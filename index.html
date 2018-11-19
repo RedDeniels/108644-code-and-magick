@@ -183,27 +183,22 @@
 
 <script src="js/game.js"></script>
 <script>
-  window.GameConstants = {
-  Fireball: {
-    size: window.fireballSize || 22,
-    speed: window.getFireballSpeed || function (movingLeft) {
-      return movingLeft ? 5 : 2;
-    }
-  },
-  Wizard: {
-    speed: window.wizardSpeed || 3,
-    width: window.wizardWidth || 70,
-    getHeight: window.getWizardHeight || function (width) {
-      return 1.337 * width;
-    },
-    getX: window.getWizardX || function (width) {
-      return width / 2;
-    },
-    getY: window.getWizardY || function (height) {
-      return height - 200;
-    }
+  var fireballSize = 22;
+  var getFireballSpeed = function(left) {
+    return left ? 5 : 2;
+  };
+  var wizardSpeed = 3;
+  var wizardWidth = 70;
+  var getWizardHeight = function() {
+    return 1.337 * width;
+  };
+  function getWizardX(width) {
+    return width / 2 - wizardWidth / 2;
   }
-};
+  function getWizardY(height) {
+    return height * 0.3 - wizardHeight / 2;
+  }
+
 </script>
 
 </body>
