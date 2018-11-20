@@ -19,7 +19,7 @@ var LINE_HEIGHT = 21;
 var CHART_HEIGHT = 150;
 var CHART_IDENT = 50;
 var BAR_WIDTH = 40;
-var BAR_COLOR = 'rgba(0, 0, 255, 1)';
+var BAR_COLOR = 'hsl(240, r, 50%)';
 var BAR_USER_COLOR = 'rgba(255, 0, 0, 1)';
 var BAR_TEXT_IDENT = 5;
 
@@ -41,11 +41,11 @@ var renderCloudText = function (ctx, x, y, textLines, font, size, color, lineHei
   }
 };
 
-var roundElements = function (Arr) {
-  for (var i = 0; i < Arr.length; i++) {
-    Arr[i] = Math.round(Arr[i]);
+var roundElements = function (arr) {
+  for (var i = 0; i < arr.length; i++) {
+    arr[i] = Math.round(arr[i]);
   }
-  return Arr;
+  return arr;
 };
 
 var getMaxElement = function (Arr) {
@@ -60,9 +60,20 @@ var renderBar = function (ctx, x, y, userName, width, height, barColor, barUserC
   if (userName === 'Вы') {
     ctx.fillStyle = barUserColor;
   } else {
-    ctx.fillStyle = barColor;
+    ctx.fillStyle = getSaturation(barColor);
   }
   ctx.fillRect(x, y, width, height);
+};
+
+var getSaturation = function (color) {
+  var saturation = Math.round(Math.random() * 100);
+  var arr = color.split('');
+  for (var i = 0; i < color.length; i++) {
+    if (color[i] === 'r') {
+      arr[i] = saturation + '%';
+    }
+  }
+  return arr.join('');
 };
 
 var getBarY = function (y, chart, height) {
