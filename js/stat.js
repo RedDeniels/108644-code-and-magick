@@ -48,6 +48,31 @@ var roundElements = function (Arr) {
   return Arr;
 };
 
+var getMaxElement = function (Arr) {
+  return Math.max.apply(null, Arr);
+};
+
+var getBarHeight = function (maxTime, maxHeight, selectedTime) {
+  return (maxHeight * selectedTime) / maxTime;
+};
+
+var renderBar = function (ctx, x, y, userName, width, height, barColor, barUserColor) {
+  if (userName === 'Вы') {
+    ctx.fillStyle = barUserColor;
+  } else {
+    ctx.fillStyle = barColor;
+  }
+  ctx.fillRect(x, y, width, height);
+};
+
+var getBarY = function (y, chart, height) {
+  return y + (chart - height);
+};
+
+var getBarX = function (x, ident, id, width) {
+  return x + ident * id + width * id;
+};
+
 
 window.renderStatistics = function (ctx, names, times) {
   var ChartY = getChartY(CLOUD_Y, CLOUD_TEXT_IDENT, CLOUD_TEXT_LINES.length + 1, LINE_HEIGHT);
@@ -56,5 +81,11 @@ window.renderStatistics = function (ctx, names, times) {
   renderCloudText(ctx, CLOUD_X + CLOUD_TEXT_IDENT, CLOUD_Y + CLOUD_TEXT_IDENT, CLOUD_TEXT_LINES, FONT, FONT_SIZE, FONT_COLOR, LINE_HEIGHT);
   roundElements(times);
 
+  for (var i = 0; i < times.length; i++) {
+    var barX = getBarX(CLOUD_X + CHART_IDENT, CHART_IDENT, i, BAR_WIDTH);
+    var barHeight = getBarHeight(getMaxElement(times), CHART_HEIGHT, times[i]);
+    var barY = getBarY(ChartY, CHART_HEIGHT, barHeight);
+    renderBar(ctx, barX, barY, names[i], BAR_WIDTH, barHeight, BAR_COLOR, BAR_USER_COLOR);
 
+  }
 };
