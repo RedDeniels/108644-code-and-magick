@@ -14,6 +14,7 @@ var CLOUD_TEXT_LINES = [
 ];
 var FONT = 'PT Mono';
 var FONT_SIZE = '16px';
+var FONT_COLOR = '#000';
 var LINE_HEIGHT = 21;
 
 var renderCloud = function (ctx, x, y, color) {
@@ -21,8 +22,17 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-window.renderStatistics = function (ctx, names, times) {
+var renderCloudText = function (ctx, x, y, textLines, font, size, color, lineHeight) {
+  ctx.fillStyle = color;
+  ctx.font = size + ' ' + font;
+  ctx.textBaseline = 'hanging';
+  for (var i = 0; i < textLines.length; i++) {
+    ctx.fillText(textLines[i], x, y + lineHeight * i);
+  }
+};
+
+window.renderStatistics = function (ctx) {
   renderCloud(ctx, CLOUD_X + CLOUD_SHADOW_IDENT, CLOUD_Y + CLOUD_SHADOW_IDENT, CLOUD_SHADOW_COLOR);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR);
-  // renderCloudText(ctx, CLOUD_X + CLOUD_IDENT, CLOUD_Y + CLOUD_IDENT, CLOUD_TEXT_LINES, FONT, FONT_SIZE, LINE_HEIGHT);
+  renderCloudText(ctx, CLOUD_X + CLOUD_IDENT, CLOUD_Y + CLOUD_IDENT, CLOUD_TEXT_LINES, FONT, FONT_SIZE, FONT_COLOR, LINE_HEIGHT);
 };
