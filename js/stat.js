@@ -73,6 +73,18 @@ var getBarX = function (x, ident, id, width) {
   return x + ident * id + width * id;
 };
 
+var renderBarName = function (ctx, x, userName, chartY, chartHeight, font, size, color, ident) {
+  ctx.fillStyle = color;
+  ctx.font = size + ' ' + font;
+  ctx.fillText(userName, x, chartY + chartHeight + ident);
+};
+
+var renderBarTime = function (ctx, x, y, time, lineHeight, font, size, color) {
+  ctx.fillStyle = color;
+  ctx.font = size + ' ' + font;
+  ctx.textBaseline = 'hanging';
+  ctx.fillText(time, x, y - lineHeight);
+};
 
 window.renderStatistics = function (ctx, names, times) {
   var ChartY = getChartY(CLOUD_Y, CLOUD_TEXT_IDENT, CLOUD_TEXT_LINES.length + 1, LINE_HEIGHT);
@@ -86,6 +98,7 @@ window.renderStatistics = function (ctx, names, times) {
     var barHeight = getBarHeight(getMaxElement(times), CHART_HEIGHT, times[i]);
     var barY = getBarY(ChartY, CHART_HEIGHT, barHeight);
     renderBar(ctx, barX, barY, names[i], BAR_WIDTH, barHeight, BAR_COLOR, BAR_USER_COLOR);
-
+    renderBarName(ctx, barX, names[i], ChartY, CHART_HEIGHT, FONT, FONT_SIZE, FONT_COLOR, BAR_TEXT_IDENT);
+    renderBarTime(ctx, barX, barY, times[i], LINE_HEIGHT, FONT, FONT_SIZE, FONT_COLOR);
   }
 };
