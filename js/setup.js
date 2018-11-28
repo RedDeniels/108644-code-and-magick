@@ -32,6 +32,13 @@ var createWizardElement = function (wizard, wizardElement) {
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyes;
 };
 
+var renderWizard = function (i) {
+  wizardsList[i] = generateWizard(WIZARD_NAMES, WIZARD_SURNAME, COAT_COLOR, EYES_COLOR);
+  var wizardElement = similarWizardTemplate.cloneNode(true);
+  createWizardElement(wizardsList[i], wizardElement);
+
+  return wizardElement;
+};
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < AMOUNT_WIZARDS; i++) {
