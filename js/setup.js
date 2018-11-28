@@ -26,6 +26,12 @@ var generateWizard = function (wizardName, wizardSurname, coatColor, eyesColor) 
   return wizard;
 };
 
+var createWizardElement = function (wizard, wizardElement) {
+  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name + ' ' + wizard.surname;
+  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coat;
+  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyes;
+};
+
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < AMOUNT_WIZARDS; i++) {
