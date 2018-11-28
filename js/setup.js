@@ -16,6 +16,16 @@ var randomCount = function (max) {
   return Math.floor(Math.random() * max);
 };
 
+var generateWizard = function (wizardName, wizardSurname, coatColor, eyesColor) {
+  var wizard = {
+    name: wizardName[randomCount(wizardName.length)],
+    surname: wizardSurname[randomCount(wizardSurname.length)],
+    coat: coatColor[randomCount(coatColor.length)],
+    eyes: eyesColor[randomCount(eyesColor.length)]
+  };
+  return wizard;
+};
+
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < AMOUNT_WIZARDS; i++) {
